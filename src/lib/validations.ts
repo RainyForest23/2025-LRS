@@ -11,8 +11,7 @@ export const loginSchema = z.object({
 // 신청 스키마 (Phase 3)
 export const applicationSchema = z.object({
   subject_id: z.string().uuid("올바른 과목을 선택해주세요"),
-  requested_count: z.coerce
-    .number()
+  requested_count: z.number()
     .min(1, "최소 1개 이상 신청해야 합니다")
     .max(3, "최대 3개까지 신청 가능합니다"),
   week_number: z.number(), // Hidden field
@@ -20,8 +19,7 @@ export const applicationSchema = z.object({
 
 // 강의평 스키마 (Phase 5)
 export const reviewSchema = z.object({
-  total_score: z.coerce
-    .number()
+  total_score: z.number()
     .min(0, "점수는 0점 이상이어야 합니다")
     .max(100, "점수는 100점 이하여야 합니다"),
   content_review: z.string().min(10, "최소 10자 이상 작성해주세요"), // 테스트 편의를 위해 10자로 완화 (운영시 100자)
@@ -33,7 +31,7 @@ export const reviewSchema = z.object({
       time: z.string().min(1, "시간을 입력해주세요"), // HH:MM:SS format validation could be added
       content: z.string().min(1, "내용을 입력해주세요"),
     })
-  ).default([]),
+  ),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;

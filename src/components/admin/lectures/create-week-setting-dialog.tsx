@@ -28,8 +28,8 @@ import { Loader2, Plus } from "lucide-react"
 import { toast } from "sonner"
 
 const formSchema = z.object({
-    week_number: z.coerce.number().min(1, "주차를 입력해주세요"),
-    year: z.coerce.number().min(2024, "연도를 확인해주세요"),
+    week_number: z.number().min(1, "주차를 입력해주세요"),
+    year: z.number().min(2024, "연도를 확인해주세요"),
     application_start: z.string().min(1, "시작 일시를 입력해주세요"),
     application_end: z.string().min(1, "종료 일시를 입력해주세요"),
     review_deadline: z.string().min(1, "리뷰 마감 일시를 입력해주세요"),

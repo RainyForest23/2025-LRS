@@ -10,11 +10,12 @@ export const loginSchema = z.object({
 
 // 신청 스키마 (Phase 3)
 export const applicationSchema = z.object({
-  subject_id: z.string().uuid("올바른 과목 ID가 아닙니다"),
-  requested_count: z
+  subject_id: z.string().uuid("올바른 과목을 선택해주세요"),
+  requested_count: z.coerce
     .number()
     .min(1, "최소 1개 이상 신청해야 합니다")
     .max(3, "최대 3개까지 신청 가능합니다"),
+  week_number: z.number(), // Hidden field
 });
 
 // 강의평 스키마 (Phase 5)

@@ -53,6 +53,11 @@ export function NavMenu({ userRole }: { userRole: string }) {
         </Link>
       )}
 
+      {/* Debug Indicator */}
+      <span className="text-xs text-muted-foreground ml-2 border px-2 py-1 rounded">
+        Role: {userRole}
+      </span>
+
       <Button
         variant="ghost"
         size="sm"

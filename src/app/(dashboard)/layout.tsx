@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
 import { NavMenu } from "@/components/layout/nav-menu";
 import { redirect } from "next/navigation";
 
@@ -14,7 +14,9 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
-  const { data: userData } = await supabase
+  // Use Admin Client to bypass RLS for fetching user role
+  const adminClient = await createAdminClient();
+  const { data: userData } = await adminClient
     .from('users')
     .select('role')
     .eq('auth_id', user.id)

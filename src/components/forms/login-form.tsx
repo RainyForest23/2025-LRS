@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
+import Link from "next/link"
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -80,8 +81,7 @@ export function LoginForm() {
             로그인
           </Button>
         </form>
-      </form>
-    </Form >
+      </Form>
       <div className="text-center text-sm mt-4">
         계정이 없으신가요?{" "}
         <Link href="/signup" className="underline underline-offset-4">

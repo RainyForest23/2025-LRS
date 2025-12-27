@@ -1,4 +1,4 @@
-import { createClient, createAdminClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { NavMenu } from "@/components/layout/nav-menu";
 import { redirect } from "next/navigation";
 
@@ -14,15 +14,19 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
-  // Use Admin Client to bypass RLS for fetching user role
-  const adminClient = await createAdminClient();
-  const { data: userData } = await adminClient
+  // Fetch user role using regular client (RLS allows users to view their own profile)
+  const { data: userData, error: userError } = await supabase
     .from('users')
     .select('role')
     .eq('auth_id', user.id)
     .single();
 
+  if (userError) {
+    console.error('[Dashboard Layout] Error fetching user role:', userError);
+  }
+
   const userRole = userData?.role || 'member';
+  console.log('[Dashboard Layout] User role:', userRole);
 
   return (
     <div className="min-h-screen bg-slate-50">

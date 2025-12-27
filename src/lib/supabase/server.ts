@@ -30,9 +30,18 @@ export async function createClient() {
 export async function createAdminClient() {
   const cookieStore = await cookies();
 
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!serviceRoleKey) {
+    console.error('[createAdminClient] SUPABASE_SERVICE_ROLE_KEY is not defined!');
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not defined');
+  }
+
+  console.log('[createAdminClient] Creating admin client with service role key (length:', serviceRoleKey.length, ')');
+
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    serviceRoleKey,
     {
       cookies: {
         getAll() {
